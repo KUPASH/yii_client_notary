@@ -60,4 +60,9 @@ class AuthController extends Controller
         }
         return $this->render('regPage', ['model' => $model]);
     }
+    public function actionLogout()
+    {
+        Yii::$app->session->destroy();
+        return $this->redirect('/auth/login');
+    }
 }
