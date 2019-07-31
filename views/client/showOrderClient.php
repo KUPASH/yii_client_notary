@@ -1,4 +1,4 @@
-<a class="btn btn-primary" role="button" href="/order/client-order">Create new order</a>
+<a class="btn btn-primary" role="button" href="/client/client-order">Create new order</a>
 </br>
 </br>
 <?php
@@ -26,7 +26,7 @@ use yii\helpers\Url; ?>
         <td><a class="btn btn-primary" role="button"
             href="<?=Url::to(['download-client-file', 'name' => $order->files[0]->short_client_key]);?>">Download</a></td>
         <td><?if($order->files[0]->short_notary_key !== NULL) { ?><a class="btn btn-primary" role="button"
-            href="<?=Url::to(['download-notary-file', 'name' => $order->files[0]->short_notary_key]);?>">Download</a><?}?></td>
+            href="<?=Url::to(['notary/download-notary-file', 'name' => $order->files[0]->short_notary_key]);?>">Download</a><?}?></td>
         <td><a class="btn btn-danger" role="button"
             href="<?=Url::to(['delete-client-order', 'del' => $order->id]);?>">Delete</a></td></tr>
 <?}?>

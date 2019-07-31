@@ -16,6 +16,8 @@ use Yii;
  */
 class Users extends \yii\db\ActiveRecord
 {
+    const ROLE_CLIENT = 1;
+    const ROLE_NOTARY = 2;
     /**
      * {@inheritdoc}
      */

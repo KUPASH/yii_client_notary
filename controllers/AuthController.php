@@ -21,10 +21,10 @@ class AuthController extends Controller
                         Yii::$app->session->set('id', $user->id);
                         Yii::$app->session->set('login', $user->login);
                         Yii::$app->session->set('type_user', $user->type_user);
-                        if($user->type_user == 1) {
-                            return $this->redirect('/order/show-order-client');
+                        if($user->type_user == Users::ROLE_CLIENT) {
+                            return $this->redirect('/client/show-order-client');
                         } else {
-                            return $this->redirect('/order/notary-order');
+                            return $this->redirect('/notary/notary-order');
                         }
                     } else {
                         $model->addError('password', 'Invalid password');
@@ -45,15 +45,14 @@ class AuthController extends Controller
                 $newUser->login = $model->login;
                 $newUser->pass = $model->setPassword($model->password);
                 $newUser->type_user = $model->typeUser;
-                $newUser->save();
                 if ($newUser->save()) {
                     Yii::$app->session->set('id', $newUser->id);
                     Yii::$app->session->set('login', $newUser->login);
                     Yii::$app->session->set('type_user', $newUser->type_user);
-                    if($newUser->type_user == 1) {
-                        return $this->redirect('/order/show-order-client');
+                    if($newUser->type_user == Users::ROLE_CLIENT) {
+                        return $this->redirect('/client/show-order-client');
                     } else {
-                        return $this->redirect('/order/notary-order');
+                        return $this->redirect('/notary/notary-order');
                     }
                 }
             }

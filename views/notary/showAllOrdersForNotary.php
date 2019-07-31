@@ -1,4 +1,4 @@
-<a class="btn btn-primary" role="button" href="/order/show-order-notary">Show my orders in work</a>
+<a class="btn btn-primary" role="button" href="/notary/show-order-notary">Show my orders in work</a>
 </br>
 </br>
 <?php
@@ -18,7 +18,7 @@ use yii\helpers\Url; ?>
             <td><?=$order->document_title?></td>
             <td><?=$order->status?></td>
             <td><a class="btn btn-primary" role="button"
-                   href="<?=Url::to(['download-client-file', 'name' => $order->files[0]->short_client_key]);?>">Download</a></td>
+                   href="<?=Url::to(['client/download-client-file', 'name' => $order->files[0]->short_client_key]);?>">Download</a></td>
             <td><a class="btn btn-success" role="button"
                    href="<?=Url::to(['take-in-work', 'work' => $order->id]);?>">Take it</a></td></tr>
     <?}?>

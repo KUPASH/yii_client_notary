@@ -1,4 +1,4 @@
-<a class="btn btn-primary" role="button" href="/order/notary-order">Return to all orders</a>
+<a class="btn btn-primary" role="button" href="/notary/notary-order">Return to all orders</a>
 </br>
 </br>
 <?php
@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm; ?>
             <td><?=$order->document_title?></td>
             <td><?=$order->status?></td>
             <td><a class="btn btn-primary" role="button"
-                   href="<?=Url::to(['download-client-file', 'name' => $order->files[0]->short_client_key]);?>">Download</a></td>
+                   href="<?=Url::to(['client/download-client-file', 'name' => $order->files[0]->short_client_key]);?>">Download</a></td>
             <td><a class="btn btn-primary" role="button"
                    href="<?=Url::to(['upload-file-notary', 'edit' => $order->id]);?>">Upload file</a>
                 <a class="btn btn-primary" role="button"
