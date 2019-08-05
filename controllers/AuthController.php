@@ -1,11 +1,12 @@
 <?php
 namespace app\controllers;
 
+use app\controllers\base\Controller;
 use app\models\LoginForm;
 use app\models\RegForm;
 use app\models\Users;
 use yii\helpers\Url;
-use yii\web\Controller;
+
 use Yii;
 
 class AuthController extends Controller
@@ -15,13 +16,11 @@ class AuthController extends Controller
         $model = new LoginForm();
         if ($model->load(\Yii::$app->request->post())) {
             if ($model->validate()) {
-                $user = Users::find()->where(['login' => $model->login])->one();
+                $user = Users::find()->where('login=:login', [':login' => $model->login])->one();
                 if (!empty($user)) {
                     if (Yii::$app->getSecurity()->validatePassword($model->password, $user->pass)) {
-                        Yii::$app->session->set('id', $user->id);
-                        Yii::$app->session->set('login', $user->login);
-                        Yii::$app->session->set('type_user', $user->type_user);
-                        if($user->type_user == Users::ROLE_CLIENT) {
+                        Yii::$app->user->login($user, $model->remember_me?3600*24*30:null);
+                        if(Yii::$app->user->identity->type_user == Users::ROLE_CLIENT) {
                             return $this->redirect('/client/show-order-client');
                         } else {
                             return $this->redirect('/notary/notary-order');
@@ -46,10 +45,8 @@ class AuthController extends Controller
                 $newUser->pass = $model->setPassword($model->password);
                 $newUser->type_user = $model->typeUser;
                 if ($newUser->save()) {
-                    Yii::$app->session->set('id', $newUser->id);
-                    Yii::$app->session->set('login', $newUser->login);
-                    Yii::$app->session->set('type_user', $newUser->type_user);
-                    if($newUser->type_user == Users::ROLE_CLIENT) {
+                    Yii::$app->user->login($newUser, $model->remember_me?3600*24*30:null);
+                    if(Yii::$app->user->identity->type_user == Users::ROLE_CLIENT) {
                         return $this->redirect('/client/show-order-client');
                     } else {
                         return $this->redirect('/notary/notary-order');
@@ -61,7 +58,7 @@ class AuthController extends Controller
     }
     public function actionLogout()
     {
-        Yii::$app->session->destroy();
+        Yii::$app->user->logout();
         return $this->redirect('/auth/login');
     }
 }
