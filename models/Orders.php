@@ -36,8 +36,8 @@ class Orders extends \yii\db\ActiveRecord
         return [
             [['name', 'city', 'document_title', 'status', 'user_id'], 'required'],
             [['notary_id', 'user_id'], 'integer'],
-            [['name', 'city'], 'string', 'max' => 30],
-            [['document_title', 'status'], 'string', 'max' => 250],
+            [['name', 'city', 'status'], 'string', 'max' => 30],
+            [['document_title'], 'string', 'max' => 80],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }

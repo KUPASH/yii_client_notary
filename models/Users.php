@@ -36,7 +36,7 @@ class Users extends \yii\db\ActiveRecord implements IdentityInterface
             [['login', 'pass', 'type_user'], 'required'],
             [['type_user'], 'integer'],
             [['login'], 'string', 'max' => 30],
-            [['pass'], 'string', 'max' => 250],
+            [['pass'], 'string', 'max' => 80],
         ];
     }
 
