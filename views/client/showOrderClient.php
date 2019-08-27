@@ -18,7 +18,7 @@ use yii\helpers\Url; ?>
         <th>File from client</th>
         <th>File from notary</th>
         <th>Delete order</th></tr>
-<?foreach ($user->orders as $order) { ?>
+<?foreach ($orders as $order) { ?>
     <tr><td><?=$order->name?></td>
         <td><?=$order->city?></td>
         <td><?=$order->document_title?></td>

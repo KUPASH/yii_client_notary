@@ -15,11 +15,11 @@ class ClientController extends \app\controllers\base\SecurityController
 {
     public function beforeAction($action)
     {
+        return parent::beforeAction($action);
         $typeUser = Yii::$app->user->identity->type_user;
         if($typeUser != Users::ROLE_CLIENT) {
             return $this->redirect('/notary/notary-order');
         }
-        return parent::beforeAction($action);
     }
     private function generateKey()
     {
@@ -32,8 +32,8 @@ class ClientController extends \app\controllers\base\SecurityController
     }
     public function actionShowOrderClient()
     {
-        $user = Users::find()->where('id=:sessionId',[':sessionId' => Yii::$app->user->id])->one();
-        return $this->render('showOrderClient', ['user' => $user]);
+        $orders = Orders::find()->where('user_id=:sessionId',[':sessionId' => Yii::$app->user->id])->all();
+        return $this->render('showOrderClient', ['orders' => $orders]);
     }
     public function actionClientOrder()
     {
