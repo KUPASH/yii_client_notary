@@ -44,6 +44,12 @@ class NotaryController extends \app\controllers\base\SecurityController
                 $order->notary_id = Yii::$app->user->id;
                 $order->status = 'In work';
                 if ($order->save()) {
+                    $user = Users::find()->where('id=:order', [':order' => $order->user_id])->one();
+                    Yii::$app->mailer->compose(['html' => 'example_in_work'], ['user' => $user])
+                        ->setFrom('katyaclient@mail.ru')  //katyaclient@mail.ru - admin-email
+                        ->setTo($user->login)
+                        ->setSubject('Your order is been in work')
+                        ->send();
                     return $this->redirect('/notary/show-order-notary');
                 } else {
                     echo '<pre>';
@@ -136,6 +142,12 @@ class NotaryController extends \app\controllers\base\SecurityController
         if ($order) {
             $order->status = 'Done';
             if ($order->save()) {
+                $user = Users::find()->where('id=:order', [':order' => $order->user_id])->one();
+                Yii::$app->mailer->compose(['html' => 'example_done'], ['user' => $user])
+                    ->setFrom('katyaclient@mail.ru')   //katyaclient@mail.ru - admin-email
+                    ->setTo($user->login)
+                    ->setSubject('Your order is done')
+                    ->send();
                 return $this->redirect('/notary/show-order-notary');
             } else {
                 echo '<pre>';

@@ -76,6 +76,15 @@ class ClientController extends \app\controllers\base\SecurityController
                             $newFiles->user_id = Yii::$app->user->id;
                             $newFiles->order_id = $newOrder->id;
                             if ($newFiles->save()) {
+                                $users = Users::find()->where('type_user=:type_user', [':type_user' => 2])->all();
+                                $messages = [];
+                                foreach ($users as $user) {
+                                    $messages[] = Yii::$app->mailer->compose(['html' => 'example_new_order'])
+                                        ->setFrom('katyaclient@mail.ru')    //katyaclient@mail.ru - admin-email
+                                        ->setTo($user->login)
+                                        ->setSubject('New Order');
+                                }
+                                \Yii::$app->mailer->sendMultiple($messages);
                                 return $this->redirect('/client/show-order-client');
                             } else {
                                 echo '<pre>';

@@ -6,7 +6,9 @@ use app\models\LoginForm;
 use app\models\RegForm;
 use app\models\Users;
 use yii\helpers\Url;
-
+//alexnotary@mail.ru   ).tBUR@i5N-5pJ4
+//borisnotary@mail.ru  [QH[_W3v!MccDt4
+//katyaclient@mail.ru   uD$tvw+85H$YG5D
 use Yii;
 
 class AuthController extends Controller
