@@ -15,11 +15,12 @@ class ClientController extends \app\controllers\base\SecurityController
 {
     public function beforeAction($action)
     {
-        return parent::beforeAction($action);
+        parent::beforeAction($action);
         $typeUser = Yii::$app->user->identity->type_user;
         if($typeUser != Users::ROLE_CLIENT) {
             return $this->redirect('/notary/notary-order');
         }
+        return true;
     }
     private function generateKey()
     {

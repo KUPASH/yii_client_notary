@@ -14,11 +14,12 @@ class NotaryController extends \app\controllers\base\SecurityController
 {
     public function beforeAction($action)
     {
-        return parent::beforeAction($action);
+        parent::beforeAction($action);
         $typeUser = Yii::$app->user->identity->type_user;
         if($typeUser != Users::ROLE_NOTARY) {
             return $this->redirect('/client/show-order-client');
         }
+        return true;
     }
 
     private function generateKey()
